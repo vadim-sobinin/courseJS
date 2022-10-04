@@ -1,11 +1,13 @@
 "use strict";
-let title = "Sites";
-let screens = "Simple, Complex, Interactive";
-let screenPrice = 100;
-let rollback = 20;
-let fullPrice = 120;
-let adaptive = true;
-
+const title = prompt("What is the name of your project?");
+const screens = prompt("What types of screens need to be developed?", "Simple, Complex, Interactive");
+const screenPrice = +prompt("How much will this work cost?($)", "100");
+const rollback = 20;
+const adaptive = (prompt("Do you need an adaptive site?", "true")) === "true" ? true : false;
+const service1 = prompt("(1)What additional type of service is needed?");
+const servicePrice1 = +prompt("(1)How much will it cost?");
+const service2 = prompt("(2)What additional type of service is needed?");
+const servicePrice2 = +prompt("(2)How much will it cost?");
 //Functions
 
 const getAllServicePrices = function(servicePrice1, servicePrice2) {
@@ -23,7 +25,7 @@ function getTitle(title) {
 }
 
 function getServicePercentPrices(fullPrice, servicePercentPrice){
-  return fullPrice - servicePercentPrice;
+  return fullPrice - Math.round((fullPrice * (rollback / 100)));
 }
 
 function getRollbackMessage(fullPrice) {
@@ -42,32 +44,13 @@ function showTypeOf(variable) {
   return typeof variable;
 }
 
-// Lesson 3
-
-title = prompt("What is the name of your project?");
-screens = prompt("What types of screens need to be developed?", "Simple, Complex, Interactive");
-screenPrice = +prompt("How much will this work cost?($)", "100");
-adaptive = (prompt("Do you need an adaptive site?", "true")) === "true" ? true : false; 
-// console.log(adaptive);
-const service1 = prompt("(1)What additional type of service is needed?");
-const servicePrice1 = +prompt("(1)How much will it cost?");
-const service2 = prompt("(2)What additional type of service is needed?");
-const servicePrice2 = +prompt("(2)How much will it cost?");
-
-fullPrice = screenPrice + servicePrice1 + servicePrice2;
-// console.log("Full price: " + fullPrice);
-
-let servicePercentPrice = Math.round((fullPrice * (rollback / 100)));
-console.log(servicePercentPrice);
-
-
 // Lesson 4
 
 const allServicePrices = getAllServicePrices(servicePrice1, servicePrice2);
 
-fullPrice = getFullPrice(screenPrice, allServicePrices);
+const fullPrice = getFullPrice(screenPrice, allServicePrices);
 
-servicePercentPrice = getServicePercentPrices(fullPrice, servicePercentPrice);
+const servicePercentPrice = getServicePercentPrices(fullPrice, rollback);
 
 
 console.log(showTypeOf(title));

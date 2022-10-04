@@ -1,10 +1,18 @@
 "use strict";
-let title = "Sites";
-let screens = "Simple, Complex, Interactive";
-let screenPrice = 100;
-let rollback = 20;
-let fullPrice = 120;
-let adaptive = true;
+
+const title = prompt("What is the name of your project?");
+const screens = prompt("What types of screens need to be developed?", "Simple, Complex, Interactive");
+const screenPrice = +prompt("How much will this work cost?($)", "100");
+const adaptive = (prompt("Do you need an adaptive site?", "true")) === "true" ? true : false; 
+const rollback = 20;
+const service1 = prompt("(1)What additional type of service is needed?");
+const servicePrice1 = +prompt("(1)How much will it cost?");
+const service2 = prompt("(2)What additional type of service is needed?");
+const servicePrice2 = +prompt("(2)How much will it cost?");
+
+const fullPrice = screenPrice + servicePrice1 + servicePrice2;
+const servicePercentPrice = Math.round((fullPrice * (rollback / 100)));
+
 
 console.log(typeof title);
 console.log(typeof fullPrice);
@@ -18,20 +26,7 @@ console.log("Percentage of payback to the broker for the work: " + (fullPrice * 
 
 // Lesson 3
 
-title = prompt("What is the name of your project?");
-screens = prompt("What types of screens need to be developed?", "Simple, Complex, Interactive");
-screenPrice = +prompt("How much will this work cost?($)", "100");
-adaptive = (prompt("Do you need an adaptive site?", "true")) === "true" ? true : false; 
 console.log(adaptive);
-const service1 = prompt("(1)What additional type of service is needed?");
-const servicePrice1 = +prompt("(1)How much will it cost?");
-const service2 = prompt("(2)What additional type of service is needed?");
-const servicePrice2 = +prompt("(2)How much will it cost?");
-
-fullPrice = screenPrice + servicePrice1 + servicePrice2;
-// console.log("Full price: " + fullPrice);
-
-const servicePercentPrice = Math.round((fullPrice * (rollback / 100)));
 console.log(servicePercentPrice);
 
 if (fullPrice >= 500) {

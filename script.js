@@ -1,17 +1,51 @@
 "use strict";
-const title = prompt("What is the name of your project?");
-const screens = prompt("What types of screens need to be developed?", "Simple, Complex, Interactive");
-const screenPrice = +prompt("How much will this work cost?($)", "100");
+let title;
+let screens;
+let screenPrice;
 const rollback = 20;
-const adaptive = (prompt("Do you need an adaptive site?", "true")) === "true" ? true : false;
-const service1 = prompt("(1)What additional type of service is needed?");
-const servicePrice1 = +prompt("(1)How much will it cost?");
-const service2 = prompt("(2)What additional type of service is needed?");
-const servicePrice2 = +prompt("(2)How much will it cost?");
+let adaptive;
+let service1;
+let service2;
 //Functions
 
-const getAllServicePrices = function(servicePrice1, servicePrice2) {
-  return servicePrice1 + servicePrice2;
+const asking = function() {
+  title = prompt("What is the name of your project?");
+  screens = prompt("What types of screens need to be developed?", "Simple, Complex, Interactive");
+  
+  do{
+    screenPrice = prompt("How much will this work cost?($)", "100");
+  } while(!isNumber(screenPrice));
+  
+  screenPrice = +screenPrice;
+  
+  adaptive = (confirm("Do you need an adaptive site?"));
+
+};
+
+const isNumber = function(num) {
+  return !isNaN(parseFloat(num)) && isFinite(num);
+};
+
+const getAllServicePrices = function() {
+  let sum = 0;
+  let servcePrice;
+
+  for (let i = 0; i < 2; i++) {
+
+    if (i === 0){
+      service1 = prompt("(1)What additional type of service is needed?"); 
+    } else if (i === 1) {
+      service2 = prompt("(2)What additional type of service is needed?");
+    }
+
+    do{
+      servcePrice = prompt("How much will it cost?");
+    } while(!isNumber(servcePrice));
+
+    sum += +servcePrice;
+  }
+  
+  return sum;
 };
 
 function getFullPrice(screenPrice, allServicePrices) {
@@ -46,7 +80,8 @@ function showTypeOf(variable) {
 
 // Lesson 4
 
-const allServicePrices = getAllServicePrices(servicePrice1, servicePrice2);
+asking();
+const allServicePrices = getAllServicePrices();
 
 const fullPrice = getFullPrice(screenPrice, allServicePrices);
 

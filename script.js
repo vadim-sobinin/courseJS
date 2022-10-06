@@ -8,43 +8,51 @@ let service1;
 let service2;
 //Functions
 
-const asking = function() {
-  title = prompt("What is the name of your project?");
-  screens = prompt("What types of screens need to be developed?", "Simple, Complex, Interactive");
-  
+const asking = function () {
   do{
+    title = prompt("What is the name of your project?");
+  } while (title === null);
+  do{
+    screens = prompt("What types of screens need to be developed?", "Simple, Complex, Interactive");
+  } while (screens === null);
+
+  do {
     screenPrice = prompt("How much will this work cost?($)", "100");
-  } while(!isNumber(screenPrice));
-  
+  } while (!isNumber(screenPrice));
+
   screenPrice = +screenPrice;
-  
+
   adaptive = (confirm("Do you need an adaptive site?"));
 
 };
 
-const isNumber = function(num) {
+const isNumber = function (num) {
   return !isNaN(parseFloat(num)) && isFinite(num);
 };
 
-const getAllServicePrices = function() {
+const getAllServicePrices = function () {
   let sum = 0;
   let servcePrice;
 
   for (let i = 0; i < 2; i++) {
 
-    if (i === 0){
-      service1 = prompt("(1)What additional type of service is needed?"); 
+    if (i === 0) {
+      do{
+        service1 = prompt("(1)What additional type of service is needed?");
+      } while (service1 === null);
     } else if (i === 1) {
-      service2 = prompt("(2)What additional type of service is needed?");
+      do{
+        service2 = prompt("(2)What additional type of service is needed?");
+      } while (service2 === null);
     }
 
-    do{
+    do {
       servcePrice = prompt("How much will it cost?");
-    } while(!isNumber(servcePrice));
+    } while (!isNumber(servcePrice));
 
     sum += +servcePrice;
   }
-  
+
   return sum;
 };
 
@@ -54,11 +62,11 @@ function getFullPrice(screenPrice, allServicePrices) {
 
 function getTitle(title) {
   return title.trim().split("").reduce((total, letter, index) => {
-    return index === 0 ? total + letter.toUpperCase() : total + letter.toLowerCase(); 
+    return index === 0 ? total + letter.toUpperCase() : total + letter.toLowerCase();
   }, "");
 }
 
-function getServicePercentPrices(fullPrice, servicePercentPrice){
+function getServicePercentPrices(fullPrice, servicePercentPrice) {
   return fullPrice - Math.round((fullPrice * (rollback / 100)));
 }
 

@@ -139,7 +139,7 @@ const appData = {
 };
 
 
-appData.start();
+
 
 
 

@@ -1,5 +1,19 @@
 "use strict";
 
+const title = document.getElementsByTagName("h1")[0].innerHTML;
+const calculateBtn = document.getElementsByClassName("handler_btn")[0];
+const resetBtn = document.getElementsByClassName("handler_btn")[1];
+const plusBtn = document.querySelector(".screen-btn");
+const extrasPercent = document.querySelectorAll(".other-items.percent");
+const extrasNumber = document.querySelectorAll(".other-items.number");
+const rollbackRange = document.querySelector(".rollback > .main-controls__range > input[type='range']");
+const rollbackRangeNumber = document.querySelector(".rollback > .main-controls__range > span");
+const totalInputs = Array.from(document.getElementsByClassName("total-input"));
+let screens = document.querySelectorAll(".screen")
+console.log(screens);
+
+
+
 //Functions
 
 const appData = {

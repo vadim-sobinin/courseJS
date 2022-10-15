@@ -17,7 +17,7 @@ const appData = {
     
     appData.asking();
 
-    appData.getAllServicePrices();
+    appData.addPrices();
 
     appData.getFullPrice(
       appData.screenPrice,
@@ -29,7 +29,7 @@ const appData = {
       appData.rollback
     );
 
-    appData.getTitle();
+    appData.getTitle(appData.title);
 
     appData.logger();
   },
@@ -37,7 +37,7 @@ const appData = {
   asking: function () {
     do {
       appData.title = prompt("What is the name of your project?");
-    } while (appData.title === null);
+    } while (!isNaN(appData.title));
     
 
     appData.screenPrice = +appData.screenPrice;
@@ -45,28 +45,32 @@ const appData = {
     appData.adaptive = confirm("Do you need an adaptive site?");
 
     for (let i = 0; i < 2; i++){
-      let name = prompt("What types of screens need to be developed?");
+      let name;
+      do {
+        name = prompt("What types of screens need to be developed?");
+      } while (!isNaN(name));
       let price = 0;
 
       do {
         price = +prompt("How much will this work cost?($)", "100");
-        console.log(price);
       } while (!appData.isNumber(price));
 
       appData.screens.push({id: i, name: name, price: price});
     }
-    console.log(appData.screens);
-    appData.screenPrice = appData.screens.reduce(((total, item) => total + item.price));
-    console.log("screens: " + appData.screenPrice);
+    
 
     for (let i = 0; i < 2; i++) {
       let price = 0;
-      let name  = prompt(
-        `(${i+1})What additional type of service is needed?`
-      );
+      let name;
 
       do {
-        price = prompt("How much will it cost?");
+        name  = prompt(
+          `(${i+1})What additional type of service is needed?`
+        );
+      } while (!isNaN(name));
+
+      do {
+        price = +prompt("How much will it cost?");
       } while (!appData.isNumber(price));
 
       appData.services[name] = price;
@@ -74,20 +78,21 @@ const appData = {
 
   },
 
+  addPrices: function(){
+    appData.screenPrice = appData.screens.reduce(((total, item) => total.price + item.price));
+
+    for (let key in appData.services){
+      appData.allServicePrices += appData.services[key];
+    }
+  },
+
   isNumber: function (num) {
     return !isNaN(parseFloat(num)) && isFinite(num);
   },
 
-  getAllServicePrices: function () {
-    
-    for (let key in appData.services){
-      appData.allServicePrices += appData.services[key];
-    }
-
-  },
 
   getFullPrice: function (screenPrice, allServicePrices) {
-    appData.fullPrice = screenPrice + allServicePrices;
+    appData.fullPrice = Number(screenPrice) + Number(allServicePrices);
   },
 
   getTitle: function (title) {

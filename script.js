@@ -42,15 +42,15 @@ const appData = {
 
     appData.screenPrice = +appData.screenPrice;
 
-    appData.adaptive = confirm("Do you need an adaptive site?");
 
     for (let i = 0; i < 2; i++){
       let name;
+      let price = 0;
+
       do {
         name = prompt("What types of screens need to be developed?");
       } while (!isNaN(name));
-      let price = 0;
-
+      
       do {
         price = +prompt("How much will this work cost?($)", "100");
       } while (!appData.isNumber(price));
@@ -73,8 +73,10 @@ const appData = {
         price = +prompt("How much will it cost?");
       } while (!appData.isNumber(price));
 
-      appData.services[name] = price;
+      appData.services[i] = {name: name, price: price};
     }
+
+    appData.adaptive = confirm("Do you need an adaptive site?");
 
   },
 
@@ -82,7 +84,7 @@ const appData = {
     appData.screenPrice = appData.screens.reduce(((total, item) => total.price + item.price));
 
     for (let key in appData.services){
-      appData.allServicePrices += appData.services[key];
+      appData.allServicePrices += appData.services[key].price;
     }
   },
 

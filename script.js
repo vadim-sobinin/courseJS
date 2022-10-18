@@ -37,7 +37,10 @@ const appData = {
   asking: function () {
     do {
       appData.title = prompt("What is the name of your project?");
-    } while (!isNaN(appData.title));
+      console.log(appData.title);
+        console.log(!appData.isAnyLetter(appData.title));
+        console.log(!isNaN(appData.title));
+    } while (!isNaN(appData.title) || !appData.isAnyLetter(appData.title));
     
 
     appData.screenPrice = +appData.screenPrice;
@@ -49,7 +52,11 @@ const appData = {
 
       do {
         name = prompt("What types of screens need to be developed?");
-      } while (!isNaN(name));
+        console.log(name);
+        console.log(!appData.isAnyLetter(name));
+        console.log(!isNaN(name));
+
+      } while (!isNaN(name) || !appData.isAnyLetter(name));
       
       do {
         price = +prompt("How much will this work cost?($)", "100");
@@ -67,7 +74,10 @@ const appData = {
         name  = prompt(
           `(${i+1})What additional type of service is needed?`
         );
-      } while (!isNaN(name));
+        console.log(name);
+        console.log(!appData.isAnyLetter(name));
+        console.log(!isNaN(name));
+      } while (!isNaN(name) || !appData.isAnyLetter(name));
 
       do {
         price = +prompt("How much will it cost?");
@@ -78,6 +88,18 @@ const appData = {
 
     appData.adaptive = confirm("Do you need an adaptive site?");
 
+  },
+
+  isAnyLetter: function(word){
+    let res = false;
+    word.split("").forEach(char => {
+      // console.log(char);
+      // console.log(char.charCodeAt(0));
+      if (char.charCodeAt(0) >= 65 && char.charCodeAt(0) <= 122 || char.charCodeAt(0) >= 1040 && char.charCodeAt(0) <= 1103){
+        res = true;
+      }
+    });
+    return res;
   },
 
   addPrices: function(){

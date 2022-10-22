@@ -101,7 +101,7 @@ const appData = {
       input.addEventListener("input", this.checkBlankInputs);
     });
 
-    resetBtn.addEventListener("click", appData.reset);
+    resetBtn.addEventListener("click", this.reset);
 
     const cmsCheckbox = document.querySelector("#cms-open");
     const cmsVariants = document.querySelector(".hidden-cms-variants");

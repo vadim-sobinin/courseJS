@@ -37,10 +37,10 @@ const appData = {
   asking: function () {
     do {
       appData.title = prompt("What is the name of your project?");
-      console.log(appData.title);
-        console.log(!appData.isAnyLetter(appData.title));
-        console.log(!isNaN(appData.title));
-    } while (!isNaN(appData.title) || !appData.isAnyLetter(appData.title));
+      // console.log(appData.title);
+      //   console.log(!appData.areAllLetters(appData.title));
+      //   console.log(!isNaN(appData.title));
+    } while (!isNaN(appData.title) || !appData.areAllLetters(appData.title));
     
 
     appData.screenPrice = +appData.screenPrice;
@@ -52,11 +52,11 @@ const appData = {
 
       do {
         name = prompt("What types of screens need to be developed?");
-        console.log(name);
-        console.log(!appData.isAnyLetter(name));
-        console.log(!isNaN(name));
+        // console.log(name);
+        // console.log(!appData.areAllLetters(name));
+        // console.log(!isNaN(name));
 
-      } while (!isNaN(name) || !appData.isAnyLetter(name));
+      } while (!isNaN(name) || !appData.areAllLetters(name));
       
       do {
         price = +prompt("How much will this work cost?($)", "100");
@@ -74,10 +74,10 @@ const appData = {
         name  = prompt(
           `(${i+1})What additional type of service is needed?`
         );
-        console.log(name);
-        console.log(!appData.isAnyLetter(name));
-        console.log(!isNaN(name));
-      } while (!isNaN(name) || !appData.isAnyLetter(name));
+        // console.log(name);
+        // console.log(!appData.areAllLetters(name));
+        // console.log(!isNaN(name));
+      } while (!isNaN(name) || !appData.areAllLetters(name));
 
       do {
         price = +prompt("How much will it cost?");
@@ -90,16 +90,23 @@ const appData = {
 
   },
 
-  isAnyLetter: function(word){
-    let res = false;
+  areAllLetters: function(word){
+    let res = 0;
     word.split("").forEach(char => {
       // console.log(char);
       // console.log(char.charCodeAt(0));
       if (char.charCodeAt(0) >= 65 && char.charCodeAt(0) <= 122 || char.charCodeAt(0) >= 1040 && char.charCodeAt(0) <= 1103){
-        res = true;
+        res++;
       }
     });
-    return res;
+    if (res === word.length){
+      // console.log("All symbols are letters");
+      return true;
+    } else {
+      // console.log("There are non letter symbol");
+      return false;
+    }
+    
   },
 
   addPrices: function(){

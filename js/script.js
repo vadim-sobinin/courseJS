@@ -102,6 +102,25 @@ const appData = {
     });
 
     resetBtn.addEventListener("click", appData.reset);
+
+    const cmsCheckbox = document.querySelector("#cms-open");
+    const cmsVariants = document.querySelector(".hidden-cms-variants");
+    cmsCheckbox.addEventListener('change', (event) => {
+      if (event.currentTarget.checked) {
+        cmsVariants.style.display = "flex";
+      } else {
+        cmsVariants.style.display = "none";
+      }
+    });
+
+    const cmsSelect = document.querySelector("#cms-select");
+    cmsSelect.addEventListener('change', (event) => {
+      if (event.currentTarget.value === "other"){
+        cmsVariants.querySelector(".main-controls__input").style.display = "flex";
+      } else if (event.currentTarget.value === "50"){
+        this.servicesPercent["WordPress"] = 50;
+      }
+    });
   },
 
   addScreens: function () {
@@ -258,7 +277,12 @@ const appData = {
     select.removeAttribute("disabled");
     input.removeAttribute("disabled");
 
-    console.dir(select);
+    const cmsVariants = document.querySelector(".hidden-cms-variants");
+    const cmsSelect = document.querySelector("#cms-select")
+    cmsVariants.style.display = "none";
+    cmsSelect.selectedIndex = 0;
+    cmsSelect.removeAttribute("disabled");
+    
   },
 
   returnButton: function () {

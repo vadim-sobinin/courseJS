@@ -60,21 +60,21 @@ const appData = {
   },
 
   start: function () {
-    console.log("Start");
+    // console.log("Start");
 
-    appData.blockAfterCalculation();
-    appData.addScreens();
-    appData.addServices();
+    this.blockAfterCalculation();
+    this.addScreens();
+    this.addServices();
 
-    appData.addPrices();
-    appData.showResult();
+    this.addPrices();
+    this.showResult();
   },
 
   reset: function () {
-    appData.removeSreenBlocks();
-    appData.nullValues();
-    appData.cleanInputs();
-    appData.returnButton();
+    this.removeSreenBlocks();
+    this.nullValues();
+    this.cleanInputs();
+    this.returnButton();
   },
 
   showResult: function () {
@@ -87,21 +87,21 @@ const appData = {
   },
 
   addEventListeners: function () {
-    calculateBtn.addEventListener("click", this.start);
+    calculateBtn.addEventListener("click", this.start.bind(appData));
 
-    rollbackRange.addEventListener("input", this.rollbackRangeChange);
+    rollbackRange.addEventListener("input", this.rollbackRangeChange.bind(appData));
 
-    plusBtn.addEventListener("click", this.addScreenBlock);
+    plusBtn.addEventListener("click", this.addScreenBlock.bind(appData));
 
     screens = document.querySelectorAll(".screen");
     screens.forEach((screen) => {
       const select = screen.querySelector("select");
       const input = screen.querySelector("input");
-      select.addEventListener("change", this.checkBlankInputs);
-      input.addEventListener("input", this.checkBlankInputs);
+      select.addEventListener("change", this.checkBlankInputs.bind(appData));
+      input.addEventListener("input", this.checkBlankInputs.bind(appData));
     });
 
-    resetBtn.addEventListener("click", this.reset);
+    resetBtn.addEventListener("click", this.reset.bind(appData));
 
     const cmsCheckbox = document.querySelector("#cms-open");
     const cmsVariants = document.querySelector(".hidden-cms-variants");
@@ -186,19 +186,19 @@ const appData = {
 
   rollbackRangeChange: function () {
     rollbackRangeNumber.textContent = `${rollbackRange.value}%`;
-    appData.rollback = +rollbackRange.value;
-    appData.servicePercentPrice = Math.round(
-      appData.fullPrice * ((100 - appData.rollback) / 100)
+    this.rollback = +rollbackRange.value;
+    this.servicePercentPrice = Math.round(
+      this.fullPrice * ((100 - this.rollback) / 100)
     );
-    totalCountRollback.value = appData.servicePercentPrice;
+    totalCountRollback.value = this.servicePercentPrice;
   },
 
   addScreenBlock: function () {
     const cloneScreen = screens[0].cloneNode(true);
     cloneScreen.classList.add("created-screen");
     screens[screens.length - 1].after(cloneScreen);
-    appData.addEventListeners();
-    appData.checkBlankInputs();
+    this.addEventListeners();
+    this.checkBlankInputs();
   },
 
   removeSreenBlocks: function () {
@@ -221,6 +221,7 @@ const appData = {
       const label = item.querySelector("label");
       const input = item.querySelector("input[type=text]");
       if (check.checked) {
+        console.log(this);
         appData.servicesNumber[label.textContent] = +input.value;
       }
     });
@@ -259,10 +260,10 @@ const appData = {
     this.fullPrice = 0;
     this.servicePercentPrice = 0;
     this.count = 0;
-    appData.showResult();
+    this.showResult();
 
     rollbackRange.value = 0;
-    appData.rollbackRangeChange();
+    this.rollbackRangeChange();
   },
 
   cleanInputs: function () {
